@@ -24,7 +24,7 @@ Here are some screenshots of my Project:
 
 5. Patient and Admin Shared Report Page:
 ![image](https://user-images.githubusercontent.com/58947407/176017416-1d4d3edc-d4dd-4cb0-87a2-77a03e28f950.png)
-![image](https://user-images.githubusercontent.com/58947407/176017487-35dd532b-0e58-474f-83ff-dfaa7db28595.png)
+![image](https://user-images.githubusercontent.com/58947407/176019078-c3c0b7f8-7177-41b9-aa78-a090630814c1.png)
 
 6. Doctor Upcoming Appointments:
 ![image](https://user-images.githubusercontent.com/58947407/176015629-c65da17f-1e39-4af4-8d0f-5a0f845e24c4.png)
