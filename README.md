@@ -5,17 +5,26 @@ I have used HTML, CSS, JS, NodeJS and MongoDB. The web site is hosted using Azur
 
 You can find my project on: https://hmars.azurewebsites.net/
 
-You can also watch my project videos on: 
+You can also watch my project video in which I have covered all user modules in less time as possible: 
 
 Here are some screenshots of my Project:
 1. Admin Dashboard:
+![image](https://user-images.githubusercontent.com/58947407/176014173-0f43a473-c398-4423-819b-bfe5fef98a1e.png)
 
 2. Doctor dashboard:
+![image](https://user-images.githubusercontent.com/58947407/176014865-79251cb4-9d28-49a6-9268-06508b06047c.png)
 
-3. Medical Record:
+3. Patient Medical Record:
+![image](https://user-images.githubusercontent.com/58947407/176016624-bc160f0a-5d04-4a11-99c0-6e5e29da56d4.png)
 
 4. View Prescription:
+![image](https://user-images.githubusercontent.com/58947407/176016954-802e1216-f484-4700-895c-c1e0f70981ff.png)
+![image](https://user-images.githubusercontent.com/58947407/176017067-5ae8f39e-5d85-42cd-b055-20bb260612bd.png)
 
-5. Shared Reports:
 
-6. Upcoming Appointments:
+5. Patient and Admin Shared Report Page:
+![image](https://user-images.githubusercontent.com/58947407/176017416-1d4d3edc-d4dd-4cb0-87a2-77a03e28f950.png)
+![image](https://user-images.githubusercontent.com/58947407/176017487-35dd532b-0e58-474f-83ff-dfaa7db28595.png)
+
+6. Doctor Upcoming Appointments:
+![image](https://user-images.githubusercontent.com/58947407/176015629-c65da17f-1e39-4af4-8d0f-5a0f845e24c4.png)
