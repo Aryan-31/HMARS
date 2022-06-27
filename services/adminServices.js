@@ -5,7 +5,7 @@ const { userInfo } = require("../models/User");
 const { medicalRecords } = require("../models/medicalRecord");
 
 const getPendingApplications = async () => {
-    var pendingApplications = await userInfo.find({ role: 'doctor', adminVerification: 'pending' }).sort(['created_at', -1])
+    var pendingApplications = await userInfo.find({ role: 'doctor', adminVerification: 'pending' }).sort({_id: -1})
     return pendingApplications
 }
 // Dashboard Services
@@ -36,22 +36,22 @@ const getAppointmentDetails = async (id) => {
 }
 
 const getPendingAppointments = async () => {
-    var pendingAppointments = await Appointment.find({ apptStatus: 'Pending' }).sort([['created_at', -1]])
+    var pendingAppointments = await Appointment.find({ apptStatus: 'Pending' }).sort({_id: -1})
     return pendingAppointments
 }
 
 const getConfirmedAppointments = async () => {
-    var confirmedAppointments = await Appointment.find({ apptStatus: 'Confirmed' }).sort([['created_at', -1]])
+    var confirmedAppointments = await Appointment.find({ apptStatus: 'Confirmed' }).sort({_id: -1})
     return confirmedAppointments
 }
 
 const getRejectedAppointments = async () => {
-    var rejectedAppointments = await Appointment.find({ apptStatus: 'Rejected' }).sort([['created_at', -1]])
+    var rejectedAppointments = await Appointment.find({ apptStatus: 'Rejected' }).sort({_id: -1})
     return rejectedAppointments
 }
 
 const getCancelledAppointments = async () => {
-    var cancelledAppointments = await Appointment.find({ apptStatus: 'Cancelled' }).sort([['created_at', -1]])
+    var cancelledAppointments = await Appointment.find({ apptStatus: 'Cancelled' }).sort({_id: -1})
     return cancelledAppointments
 }
 
@@ -73,7 +73,7 @@ const appointmentCancel = async (id) => {
 
 // Application Services
 const getRejectedApplications = async () => {
-    var rejectedApplications = await userInfo.find({ role: 'doctor', adminVerification: 'rejected' }).sort([['created_at', 1]])
+    var rejectedApplications = await userInfo.find({ role: 'doctor', adminVerification: 'rejected' }).sort({_id: -1})
     return rejectedApplications
 }
 
@@ -93,12 +93,12 @@ const formattedDateTime = async () => {
 }
 
 const getDoctorList = async () => {
-    var verifiedDoctorsList = await userInfo.find( { role: 'doctor', adminVerification: 'verified'}).sort([['name', 1]])
+    var verifiedDoctorsList = await userInfo.find( { role: 'doctor', adminVerification: 'verified'}).sort({name: 1})
     return verifiedDoctorsList
 }
 
 const getDeletedDoctorList = async () => {
-    var deletedDoctorsList = await userInfo.find( { role: 'doctor', adminVerification: 'deleted'}).sort([['name', 1]])
+    var deletedDoctorsList = await userInfo.find( { role: 'doctor', adminVerification: 'deleted'}).sort({name: 1})
     return deletedDoctorsList
 }
 
@@ -118,7 +118,7 @@ const patienRecordsForDoctors = async (email) => {
 const patientLastVisit = async (patientList) => {
     var lastVisits = []
     for (let i = 0; i < patientList.length; i++) {
-        var lastVisit = await medicalRecords.find( {email: patientList[i].email}, 'visitedOn' ).sort([['visitedOn', -1]]).limit(1)
+        var lastVisit = await medicalRecords.find( {email: patientList[i].email}, 'visitedOn' ).sort({_id: 1}).limit(1)
         lastVisits.push(lastVisit[0])
     }
     return lastVisits
@@ -149,12 +149,12 @@ const allowDoctor = async (id) => {
 
 // Patient Services
 const getPatientList = async () => {
-    var verifiedPatientsList = await userInfo.find( { role: 'patient', deleted: '0' }).sort([['name', 1]])
+    var verifiedPatientsList = await userInfo.find( { role: 'patient', deleted: '0' }).sort({name: 1})
     return verifiedPatientsList
 }
 
 const getDeletedPatientList = async () => {
-    var deletedPatientsList = await userInfo.find( { role: 'patient', deleted: '1'}).sort([['name', 1]])
+    var deletedPatientsList = await userInfo.find( { role: 'patient', deleted: '1'}).sort({name: 1})
     return deletedPatientsList
 }
 

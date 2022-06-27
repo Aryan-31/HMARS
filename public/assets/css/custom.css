@@ -532,3 +532,6 @@ a,
   position: relative;
   z-index: 2;
 }
+.list-group .list-item{
+  list-style: none;
+}
