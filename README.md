@@ -1,7 +1,7 @@
 # Hospital Management And Record Sharing(HMARS)
 It is a web based project with some basic hospital management functionalities and a special functionality to share your report with other registered users. This project was made during my internship with Future Ready Talent.
 
-You can find my project on: https://hmars.azurewebsites.net/
+Website: https://hmars.azurewebsites.net/
 
 You can also watch my project video in which I have covered all user modules in a brief period of time: https://youtu.be/CUWS5O1wC80
 
