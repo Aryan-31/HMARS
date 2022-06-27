@@ -12,13 +12,13 @@ Here are some screenshots of my Project:
 ![image](https://user-images.githubusercontent.com/58947407/176014173-0f43a473-c398-4423-819b-bfe5fef98a1e.png)
 
 2. Doctor dashboard:
-![image](https://user-images.githubusercontent.com/58947407/176014865-79251cb4-9d28-49a6-9268-06508b06047c.png)
+![image](https://user-images.githubusercontent.com/58947407/176018664-ee4f0312-6821-423a-a4af-487c7722fd4e.png)
 
 3. Patient Medical Record:
 ![image](https://user-images.githubusercontent.com/58947407/176016624-bc160f0a-5d04-4a11-99c0-6e5e29da56d4.png)
 
 4. View Prescription:
-![image](https://user-images.githubusercontent.com/58947407/176016954-802e1216-f484-4700-895c-c1e0f70981ff.png)
+![image](https://user-images.githubusercontent.com/58947407/176018406-d0e869ac-4855-4afd-8ab2-0eb9041da69e.png)
 ![image](https://user-images.githubusercontent.com/58947407/176017067-5ae8f39e-5d85-42cd-b055-20bb260612bd.png)
 
 
