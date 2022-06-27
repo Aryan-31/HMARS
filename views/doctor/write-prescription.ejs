@@ -1,0 +1,229 @@
+<%- include('./header.ejs') %>
+<div class="offset-2 col-10">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header bg-secondary">
+                <h4>Patient Information</h4>
+            </div>
+            <div class="row g-0 border border-bottom border-bg-secondary">
+                <div class="col-md-3 mt-n5">
+                    <i class="ps-10 bi bi-person-square fa-10x"></i>
+                <!-- <img src="/assets/images/doctor/single-patient-view-account-icon.png" class="w-25 rounded-start" alt="account"> -->
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="name" class="form-label text-muted">Name</label>
+                                <input
+                                type="text"
+                                class="form-control border-top-0 border-right-0 border-left-0 border- bg-white"
+                                id="name"
+                                value="<%= patientDetails.name %>"
+                                disabled
+                                />
+                            </div>
+                            <div class="offset-md-2 col-md-4">
+                                <label for="email" class="form-label text-muted">Email</label>
+                                <input
+                                type="email"
+                                class="form-control border-top-0 border-right-0 border-left-0 border- bg-white"
+                                id="email"
+                                value="<%= patientDetails.email %>"
+                                disabled
+                                />
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label for="age" class="form-label text-muted">Age</label>
+                                <input
+                                type="text"
+                                class="form-control border-top-0 border-right-0 border-left-0 border- bg-white"
+                                id="age"
+                                value="<%= patientAge %>"
+                                disabled
+                                />
+                            </div>
+                            <div class="offset-md-2 col-md-4">
+                                <label for="lastVisit" class="form-label text-muted">Last visit</label>
+                                <input
+                                type="text"
+                                class="form-control border-top-0 border-right-0 border-left-0 border- bg-white"
+                                id="lastVisit"
+                                value=""
+                                disabled
+                                />
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label for="totalVisits" class="form-label text-muted"
+                                >Reason</label
+                                >
+                                <input
+                                type="text"
+                                class="form-control border-top-0 border-right-0 border-left-0 border- bg-white"
+                                id="reason"
+                                value="<%= appt.reason %>"
+                                disabled
+                                />
+                            </div>
+                            <div class="offset-md-2 col-md-4">
+                                <label for="mobNo" class="form-label text-muted"
+                                >Description</label
+                                >
+                                <input
+                                type="text"
+                                class="form-control border-top-0 border-right-0 border-left-0 border- bg-white"
+                                id="desc"
+                                value="<%= appt.description %>"
+                                disabled
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header bg-secondary">
+                <h4>Write Prescription</h4>
+            </div>
+            <div class="col-md-12">
+                <form action="/doctor/submit-prescription" method="post" id="prescriptionForm">
+                    <input type="hidden" name="noOfMedicines" id="noOfMedicines">
+                    <input type="hidden" name="patientObjectID" id="patientObjectID" value="<%= patientDetails._id %>">
+                    <input type="hidden" name="apptID" id="apptID" value="<%= appt._id %>">
+                    <div class="my-auto row g-2 border-bottom border-secondary">
+                        <div class="col-2">
+                            <label>Diagnosis</label>
+                        </div>
+                        <div class="mb-4 col-10">
+                            <input type="text" name="diagnosis" id="diagnosis" class="form-control shadow-none border-dark border-top-0 border-right-0 border-left-0 rounded-0">
+                        </div>
+                    </div>
+                    <div class="mt-2 row g-4">
+                        <div class="offset-1 col-md-3">
+                            <label>Medicine</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Dosage</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Timing</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Frequency</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Duration</label>
+                        </div>
+                    </div>
+                    <div id="prescriptionFields">
+                        <div class="row g-4" id="medicineField0">
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" class="btn-clone" title="Add" onclick="attribute_cloning_add();">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a  href="javascript:void(0);" id="attribute_cloning" class="btn-clone" title="Remove" onclick="remove_current_div_venues($(this));">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                                <!-- <input type="button" class="btn btn-sm btn-neutral fs-1" value="+" id="add_button"> -->
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control border-dark" name="medicineName" id="medicineName0">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" list="dosageList" name="dosage" class="form-control border-dark" id="dosage0">
+                                <datalist id="dosageList">
+                                    <option value="1-0-0"></option>
+                                    <option value="0-1-0"></option>
+                                    <option value="0-0-1"></option>
+                                    <option value="1-1-0"></option>
+                                    <option value="1-0-1"></option>
+                                    <option value="0-1-1"></option>
+                                    <option value="1-1-1"></option>
+                                    <option value="1 ml"></option>
+                                    <option value="5 ml"></option>
+                                    <option value="10 ml"></option>
+                                </datalist>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" list="timingList" class="form-control border-dark" name="timing" id="timing0" autocomplete="off">
+                                <datalist id="timingList">
+                                    <option value="Bed Time"></option>
+                                    <option value="Morning & Afternoon"></option>
+                                    <option value="Morning & Evening"></option>
+                                    <option value="Afternoon & Evening"></option>
+                                    <option value="After Food"></option>
+                                    <option value="Morning"></option>
+                                    <option value="Afternoon"></option>
+                                    <option value="Evening"></option>
+                                </datalist>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" list="frequencyList" class="form-control border-dark" name="frequency" id="frequency0" autocomplete="off">
+                                <datalist id="frequencyList">
+                                    <option value="Daily"></option>
+                                    <option value="Alternate day"></option>
+                                    <option value="Every week"></option>
+                                    <option value="Alternate week"></option>
+                                </datalist>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" list="durationList" class="form-control border-dark" name="duration" id="duration0" autocomplete="off">
+                                <datalist id="durationList">
+                                    <option value="5 Days"></option>
+                                    <option value="10 Days"></option>
+                                    <option value="15 Days"></option>
+                                    <option value="1 Month"></option>
+                                    <option value="2 Months"></option>
+                                    <option value="3 Months"></option>
+                                    <option value="4 Months"></option>
+                                </datalist>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="mt-4 mb-2 col-md-2">
+                        <button type="submit" class="btn btn-primary">Prescribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var countval = 1; //for Increase id num
+    var fieldCounts = 1
+    // Add clone  
+    function attribute_cloning_add(){
+        var new_count = countval++; //for increase id number
+        // both for change id  
+        $clone1 = $("#medicineField0").clone().find('input').val('').end();
+        $clone1.attr('id','medicineField'+new_count);
+        $clone1.attr('class','row g-4 mt-1');
+        var newInputs = $clone1.children().find('input')
+        newInputs.each(function() {
+            this.id = this.id.replace('0',new_count)
+            //this.name = this.name.replace('[0]','['+new_count+']');
+        })
+        $('#prescriptionFields').append($clone1); //for append Clone Data
+        fieldCounts++
+        $('#noOfMedicines').val(fieldCounts)
+    }
+    // Remove clones
+    function remove_current_div_venues(obj){
+        var parent_id = obj.parent().parent().attr('id'); //for parent ID
+        if( parent_id != 'medicineField0'){
+            obj.parent().parent().remove();
+            fieldCounts--
+            $('#noOfMedicines').val(fieldCounts)
+        }    
+    }
+</script>
+  
+
+<script>
+    
+</script>
+<%- include('./footer.ejs') %>

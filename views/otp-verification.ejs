@@ -1,0 +1,50 @@
+<%- include('./header.ejs') %>
+<form action="/submit-email-authentication" method="post">
+  <section class="login-sec">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-5 col-lg-5 m-auto">
+          <div class="login-form-box">
+            <h2>Welcome to HMARS</h2>
+            <div class="form-group">
+              <label>An OTP has been sent to your registered email</label>
+            </div>
+            <div class="form-group mb-0">
+              <label>Enter Your OTP</label>
+              <input
+                type="password",
+                name="otp"
+                class="form-control"
+                placeholder="*********"
+                id="otp-field"
+              />
+              <span toggle="#otp-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+              <!-- <button type="button" class="btn" id="showbtn"><i class="fa fa-eye" aria-hidden="true"></i></button> -->
+            </div>
+            <p class="text-right forgot-link">
+              <a href="/send-email">Resend OTP</a>
+            </p>
+            <div class="mb-3">
+              <input class="common-btn" type="submit" value="Submit" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<script>
+  $(".toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+      input.attr("type", "text");
+    } else {
+      input.attr("type", "password");
+    }
+  });
+</script>
+
+<%- include('./footer.ejs') %>

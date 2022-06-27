@@ -1,0 +1,147 @@
+<%- include('header.ejs'); %>
+<section class="book-appt-page-sec">
+  <div class="offset-sm-6 offset-md-2 col-sm-6 col-md-8 offset-md-2 container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="left: 100px;">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 m-auto">
+                <h2 class="d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Book Appointment</h2>
+                <% if(err_msg!=undefined){ %>
+                  <span class="error_validate flash_msg mx-7" style="color: red;" >
+                      <%= err_msg %>
+                  </span>
+                <% }%>
+                <% if(success_msg!=undefined){ %>
+                    <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                        <%= success_msg %>
+                    </span>
+                <% }%>
+                <div class="add-painting-form">
+                  <div class="profile-form mt-20 view-banner-page">
+                    <form action="/patient/submit-appt" method="post">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" class="form-control" name="pName" value="<%= session.re_usr_name %>" />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control" name="pEmail" value="<%= session.re_usr_email %>" readonly/>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Doctor Name</label>
+                                <input type="text" list='searchResultsList' class="form-control" name="dName" placeholder="Search Doctor" autocomplete="off" onkeyup="searchDoctor(this)" id="docSearchText"/>
+                                <datalist id="searchResultsList">
+                                </datalist>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Specialisation</label>
+                                <input type="text" class="form-control" placeholder="Doctor's Specialisation" id="specialisation" disabled/>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Doctor's Email</label>
+                                <input
+                                  type="text"
+                                  name="dEmail"
+                                  class="form-control"
+                                  id="doctorEmail"
+                                  placeholder="Doctor's Email"
+                                  readonly 
+                                />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Appointment Date/Time</label>
+                                <input
+                                  type="datetime-local"
+                                  name="apptDateTime"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Reason</label>
+                                <input type="text" class="form-control" name="reason" placeholder="Reason to see the doctor" autocomplete="off"/>
+                              </div>
+                            </div>
+  
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="3" cols="21" class="form-control" name="desc" placeholder="A brief description"/ ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="popup-btn text-center">
+                            <button type="submit" class="common-btn mr-5">Book</button>
+                            <button type="reset" class="common-btn">Reset</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function searchDoctor(doc) {
+    const searchResults = document.getElementById('searchResultsList')
+    //const docEmail = document.getElementById('docEmailList')
+    fetch('../patient/bookAppt/getDoctor', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({payload: doc.value})
+    }).then(res => res.json()).then( data => {
+      let payload = data.payload
+      var options = '';
+      var emailList = []
+      var specialisationList = []
+      for(i = 0; i < payload.length; i++) {
+        options += '<option value="'+payload[i].name+'"></option>';
+        emailList.push(payload[i].email)
+        specialisationList.push(payload[i].specialisation)
+      }
+      document.getElementById('searchResultsList').innerHTML = options;
+      var inputVal = document.getElementById('docSearchText').value;
+      var specialisation = document.getElementById('specialisation')
+      var doctorEmail = document.getElementById('doctorEmail')
+      for(var i = 0; i < payload.length; i++) { 
+        if(inputVal == payload[i].name) {
+          specialisation.value = specialisationList[i];
+          doctorEmail.value = emailList[i];
+          break;
+        }
+      }
+    })
+  }
+</script>
+
+<%- include('footer.ejs'); %>

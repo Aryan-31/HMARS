@@ -1,0 +1,201 @@
+<%- include('./header.ejs')  %> 
+            </div>
+        </header>
+        <main class="py-6 bg-surface-secondary">
+            <div class="container-fluid">
+                <div class="card shadow border-0 mb-7">
+                        <div class="card-header">
+                            <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Records</h5>
+                            <% if(err_msg!=undefined){ %>
+                                <span class="error_validate flash_msg mx-7" style="color: red;" >
+                                    <%= err_msg %>
+                                </span>
+                            <% }%>
+                            <% if(success_msg!=undefined){ %>
+                                <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                                    <%= success_msg %>
+                                </span>
+                            <% }%>
+                            <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-nowrap">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Patient Name</th>
+                                        <th scope="col">Doctor Name</th>
+                                        <th scope="col">Visited On</th>
+                                        <th scope="col">Diagnosis</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (medicalReportList.length < 1) { %>
+                                        <tr>
+                                          <td colspan="6">No medical records found</td>
+                                        </tr>
+                                    <% } else { %>
+                                        <% for( let i = 0; i < medicalReportList.length; i++ ) { %>
+                                            <tr>
+                                                <td data-label="Patient Name" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= medicalReportList[i].patientName %>"><%= medicalReportList[i].patientName %></td>
+                                                <td data-label="Doctor Name" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= medicalReportList[i].doctorName %>"><%= medicalReportList[i].doctorName %></td>
+                                                <td data-label="Visited On"><%= medicalReportList[i].visitedOn %></td>
+                                                <td data-label="Diagnosis" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= medicalReportList[i].diagnosis %>"><%= medicalReportList[i].diagnosis %></td>
+                                                <td data-label="Type" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= medicalReportList[i].recordType %>"><%= medicalReportList[i].recordType %></td>
+                                                <td class="text-end">
+                                                    <a 
+                                                    href="/admin/view-prescription" 
+                                                    class="me-10"
+                                                    onclick="location.href = this.href+'/'+`<%= medicalReportList[i]._id %>`;return false"
+                                                    >
+                                                    <i class="bi bi-folder2-open"></i>
+                                                    </a>
+                                                    <a 
+                                                    type="button"
+                                                    class="me-10"
+                                                    data-toggle="modal"
+                                                    data-target="#shareModal"
+                                                    data-id="<%= medicalReportList[i]._id %>"
+                                                    id="shareButton"
+                                                    >
+                                                    <i class="bi bi-share"></i>
+                                                    </a>
+                                                    <a 
+                                                    type="button" 
+                                                    class="me-10"
+                                                    data-toggle="modal"
+                                                    data-target="#deleteConfirmModal"
+                                                    >
+                                                    <i class="bi bi-x"></i>
+                                                    </a>
+                                                </td>
+                                                <!-- Share Modal -->
+                                                <div
+                                                class="modal fade"
+                                                id="shareModal"
+                                                tabindex="-1"
+                                                role="dialog"
+                                                aria-labelledby="shareModalLabel"
+                                                aria-hidden="true"
+                                                >
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="shareModalLabel">Share Report</h5>
+                                                                <button
+                                                                type="button"
+                                                                class="close"
+                                                                data-dismiss="modal"
+                                                                aria-label="Close"
+                                                                >
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form action="/admin/share-report" method="post">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" name="reportID" id="reportID">
+                                                                        <label for="recipient-name" class="col-form-label">To:</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            list="searchResultsList"
+                                                                            name="sharedTo"
+                                                                            class="form-control"
+                                                                            id="recipient-name"
+                                                                            placeholder="Type name or email"
+                                                                            onkeyup="searchUser(this)"
+                                                                        />
+                                                                        <datalist id="searchResultsList">
+                                                                            <option id="searchResults0"></option>
+                                                                            <option id="searchResults1"></option>
+                                                                            <option id="searchResults2"></option>
+                                                                            <option id="searchResults3"></option>
+                                                                            <option id="searchResults4"></option>
+                                                                        </datalist>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="message-text" class="col-form-label">Message:</label>
+                                                                        <textarea
+                                                                        class="form-control"
+                                                                        name="message"
+                                                                        id="message-text"
+                                                                        placeholder="Type a message (if any)"
+                                                                        ></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-primary">Share</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Share Model Completed -->
+                                                <!-- Delete Confirmation Model -->
+                                                <div
+                                                class="modal fade delete"
+                                                id="deleteConfirmModal"
+                                                tabindex="-1"
+                                                role="dialog"
+                                                aria-labelledby="deleteConfirmModalTitle"
+                                                aria-hidden="true"
+                                                >
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteConfirmModalLongTitle">
+                                                        Delete Record
+                                                        </h5>
+                                                        <button
+                                                        type="button"
+                                                        class="close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"
+                                                        >
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete this medical record?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        No
+                                                        </a>
+                                                        <a
+                                                        href="#"
+                                                        class="btn btn-primary"
+                                                        >
+                                                        Yes
+                                                        </a>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <!-- Modal Completed  -->
+                                            </tr>
+                                        <% } %> 
+                                    <% } %> 
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </main>
+        <!-- Script for getting Record ID from share button -->
+        <script>
+            var reportID;
+            
+            $('#shareButton').click(function() {
+            reportID = $(this).attr('data-id'); 
+            });
+            
+            $('#shareModal').on('show.bs.modal', function (e) {
+                $(this).find('#reportID').val(reportID);
+            });
+        </script>        
+<%- include('./footer.ejs')  %> 

@@ -1,0 +1,114 @@
+<%- include('./header.ejs') %>
+<div class="offset-2 col-10">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Appointments</h4>
+        <% if(err_msg!=undefined){ %>
+          <span class="error_validate flash_msg mx-7" style="color: red;" >
+              <%= err_msg %>
+          </span>
+        <% }%>
+        <% if(success_msg!=undefined){ %>
+            <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                <%= success_msg %>
+            </span>
+        <% }%>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-nowrap">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Patient Name</th>
+              <th scope="col">Appointment Date/Time</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Description</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (appts.length < 1) { %>
+             <td colspan="5">You have no Appointments.</td>
+            <% } else { %>
+              <% for( var i = 0; i < appts.length; i++ ) { %>
+                <tr>
+                  <td data-label="Patient Name"><%= appts[i].patientName %></td>
+                  <td data-label="Doctor Name"><%= appts[i].apptDateTime %></td>
+                  <td data-label="Reason" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= appts[i].reason %>"><%= appts[i].reason %></td>
+                  <td data-label="Description" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= appts[i].description %>"><%= appts[i].description %></td>
+                  <td class="text-end">
+                      <a 
+                      href="/doctor/write-prescription" 
+                      class="me-10"
+                      onclick="location.href=this.href+'/' + `<%= appts[i]._id %>`;return false"
+                      >
+                        <i class="fas fa-file-prescription"></i>
+                      </a>
+                      <a 
+                      type="button" 
+                      class="me-10"
+                      data-toggle="modal"
+                      data-target="#cancelConfirmModal<%= i %>"
+                      >
+                        <i class="bi bi-x"></i>
+                      </a>
+                  </td>
+                  <!-- Cancel Confirmation Model -->
+                  <div
+                    class="modal fade delete"
+                    id="cancelConfirmModal<%= i %>"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="cancelConfirmModalTitle"
+                    aria-hidden="true"
+                  >
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="cancelConfirmModalLongTitle">
+                          Cancel Appointment
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to Cancel this Appointment?
+                      </div>
+                      <div class="modal-footer">
+                        <a type="button" class="btn btn-secondary" data-dismiss="modal">
+                          No
+                        </a>
+                        <a
+                          href="/doctor/cancel-appointment"
+                          class="btn btn-primary"
+                          onclick="location.href=this.href+'/'+ `<%=appts[i]._id %>`;return false"
+                        >
+                          Yes
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <!-- Modal Completed  -->
+                </tr>
+              <% } %>
+            <% } %>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  //Hide flash message after 10 seconds
+  setTimeout(function() {
+    $('.flash_msg').fadeOut('fast');
+}, 5000);
+</script>
+<%- include('./footer.ejs') %>

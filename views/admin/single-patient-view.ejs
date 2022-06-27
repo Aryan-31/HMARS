@@ -1,0 +1,152 @@
+<%- include('./header.ejs')  %> 
+            </div>
+        </header>
+        <main class="py-6 bg-surface-secondary">
+            <div class="container-fluid">
+                <div class="card rounded-bottom-0">
+                    <div class="card-header bg-secondary">
+                        <h4>Patient Information</h4>
+                    </div>
+                    <div class="row g-0 ">
+                        <div class="col-md-3 mt-n6">
+                            <i class="ps-12 pe-12 mt-n6 bi bi-person-square" style="font-size: calc(8vw + 6vh + 4vmin);"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="name" class="form-label text-muted">Name</label>
+                                        <input
+                                        type="text"
+                                        class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                        id="name"
+                                        value="<%= patientDetails.name %>"
+                                        disabled
+                                        />
+                                    </div>
+                                    <div class="offset-md-2 col-md-4">
+                                        <label for="email" class="form-label text-muted">Email</label>
+                                        <input
+                                        type="email"
+                                        class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                        id="email"
+                                        value="<%= patientDetails.email %>"
+                                        disabled
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <label for="mobNo" class="form-label text-muted"
+                                        >Mobile Number</label
+                                        >
+                                        <input
+                                        type="text"
+                                        class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                        id="mobNo"
+                                        value="<%= patientDetails.mobile_no %>"
+                                        disabled
+                                        />
+                                    </div>
+                                    <div class="offset-md-2 col-md-4">
+                                        <label for="age" class="form-label text-muted">Age</label>
+                                        <input
+                                        type="text"
+                                        class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                        id="age"
+                                        value="<%= patientAge %>"
+                                        disabled
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <label for="totalVisits" class="form-label text-muted"
+                                        >No. of visits</label
+                                        >
+                                        <input
+                                        type="text"
+                                        class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                        id="totalVisits"
+                                        value="<%= countVisits %>"
+                                        disabled
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-nowrap">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">Doctor Name</th>
+                                <th scope="col">Doctor Email</th>
+                                <th scope="col">Visited On</th>
+                                <th scope="col">Diagnosis</th>
+                                <th scope="col">Type</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for( var i = 0; i < patientRecordsList.length; i++ ) { %>
+                                <tr>
+                                    <td
+                                        data-label="Doctor Name"
+                                        class="text-truncate"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="center-bottom"
+                                        title="<%= patientRecordsList[i].doctorName %>"
+                                    >
+                                        <%= patientRecordsList[i].doctorName %>
+                                    </td>
+                                    <td
+                                        data-label="Doctor Email"
+                                        class="text-truncate"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="center-bottom"
+                                        title="<%= patientRecordsList[i].doctorEmail %>"
+                                    >
+                                        <%= patientRecordsList[i].doctorEmail %>
+                                    </td>
+                                    <td
+                                        data-label="Visited On"
+                                        class="text-truncate"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="center-bottom"
+                                        title="<%= patientRecordsList[i].visitedOn %>"
+                                    >
+                                        <%= patientRecordsList[i].visitedOn %>
+                                    </td>
+                                    <td
+                                        data-label="Diagnosis"
+                                        class="text-truncate"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="center-bottom"
+                                        title="<%= patientRecordsList[i].diagnosis %>"
+                                    >
+                                        <%= patientRecordsList[i].diagnosis %>
+                                    </td>
+                                    <td
+                                        data-label="Type"
+                                        class="text-truncate"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="center-bottom"
+                                        title="<%= patientRecordsList[i].recordType %>"
+                                    >
+                                        <%= patientRecordsList[i].recordType %>
+                                    </td>
+                                    <td class="text-end">
+                                        <a href="/admin/view-prescription" class="me-10" onclick="location.href=this.href+'/'+`<%= patientRecordsList[i]._id %>`;return false">
+                                            <i class="bi bi-folder2-open"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <% } %> 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+<%- include('./footer.ejs')  %> 

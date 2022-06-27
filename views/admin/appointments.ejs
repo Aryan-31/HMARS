@@ -1,0 +1,256 @@
+<%- include('./header.ejs')  %> 
+                <!-- Nav -->
+                <ul class="nav nav-tabs mt-4 overflow-x border-0" id="myTab" role="tablist">
+                    <li class="nav-item ">
+                        <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pendingApplication" type="button" role="tab" aria-controls="pending" aria-selected="true">Pending</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link font-regular" id="confirmed-tab" data-bs-toggle="tab" data-bs-target="#confirmedApplication" type="button" role="tab" aria-controls="confirmed" aria-selected="false">Confirmed</button>
+                    </li>
+                    <li class="nav-item ">
+                        <button class="nav-link font-regular" id="rejected-tab" data-bs-toggle="tab" data-bs-target="#rejectedApplication" type="button" role="tab" aria-controls="rejected" aria-selected="false">Rejected</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link font-regular" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelledApplication" type="button" role="tab" aria-controls="cancelled" aria-selected="false">Cancelled</button>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main class="py-6 bg-surface-secondary">
+            <div class="tab-content container-fluid" id="nav-tabContent">
+                <div class="tab-pane fade show active card shadow border-0 mb-7" id="pendingApplication" role="tabpanel" aria-labelledby="pending-tab">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Pending Appointments</h5>
+                        <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+                        <% if ( err_msg != undefined ){ %>
+                            <span class="error_validate flash_msg mx-7" style="color: red;" aria-hidden="true" >
+                                <%= err_msg %>
+                            </span>
+                        <% }%>
+                        <% if(success_msg!=undefined){ %>
+                            <span class="error_validate flash_msg mx-7" style="color:#71D840" aria-hidden="true" >
+                                <%= success_msg %>
+                            </span>
+                        <% }%>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-nowrap">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Doctor Name</th>
+                                    <th scope="col">Appointment Date/Time</th>
+                                    <th scope="col">Reason</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (pendingAppointments.length < 1) { %>
+                                    <tr>
+                                        <td class="col mx-auto" colspan="6"><h6>No Appointments to review</h6></td>
+                                    </tr>
+                                <% } %>
+                                <% for( var i = 0; i < pendingAppointments.length; i++ ) { %>
+                                    <tr>
+                                        <td><%= pendingAppointments[i].patientName %></td>
+                                        <td><%= pendingAppointments[i].doctorName %></td>
+                                        <td><%= pendingAppointments[i].apptDateTime %></td>
+                                        <td><%= pendingAppointments[i].reason %></td>
+                                        <td>
+                                            <span class="badge badge-lg badge-dot">
+                                                <i class="bg-warning"></i> <%= pendingAppointments[i].apptStatus %>
+                                            </span> 
+                                        </td>
+                                        <td class="text-end">
+                                            <a 
+                                                href="/admin/appointment-details" 
+                                                class="mx-1 btn btn-sm btn-neutral view"
+                                                onclick="location.href=this.href+'/'+ `<%= pendingAppointments[i]._id %>`;return false"
+                                            >View</a>
+                                            <a 
+                                                href="/admin/accept-appointment" 
+                                                class="mx-1 btn btn-sm btn-neutral confirm"
+                                                onclick="location.href=this.href+'/'+ `<%= pendingAppointments[i]._id %>`;return false"
+                                            ><i class="bi bi-check"></i></a>
+                                            <a 
+                                                href="/admin/reject-appointment" 
+                                                class="mx-1 btn btn-sm btn-square btn-neutral cancel"
+                                                onclick="location.href=this.href+'/'+ `<%= pendingAppointments[i]._id %>`;return false"
+                                            ><i class="bi bi-x"></i></a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade card shadow border-0 mb-7" id="confirmedApplication" role="tabpanel" aria-labelledby="confirmed-tab">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Confirmed Appointments</h5>
+                        <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-nowrap">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Doctor Name</th>
+                                    <th scope="col">Appointment Date/Time</th>
+                                    <th scope="col">Reason</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (confirmedAppointments.length < 1) { %>
+                                    <tr>
+                                        <td class="col mx-auto" colspan="6"><h6>No applications to review</h6></td>
+                                    </tr>
+                                <% } %>
+                                <% for( var i = 0; i < confirmedAppointments.length; i++ ) { %>
+                                    <tr>
+                                        <td><%= confirmedAppointments[i].patientName %></td>
+                                        <td><%= confirmedAppointments[i].doctorName %></td>
+                                        <td><%= confirmedAppointments[i].apptDateTime %></td>
+                                        <td><%= confirmedAppointments[i].reason %></td>
+                                        <td>
+                                            <span class="badge badge-lg badge-dot">
+                                                <i class="bg-success"></i> <%= confirmedAppointments[i].apptStatus %>
+                                            </span> 
+                                        </td>
+                                        <td class="text-end">
+                                            <a 
+                                                href="/admin/appointment-details" 
+                                                class="mx-1 btn btn-sm btn-neutral view"
+                                                onclick="location.href=this.href+'/'+ `<%=confirmedAppointments[i]._id %>`;return false"
+                                            >View</a>
+                                            <a 
+                                                href="/admin/cancel-appointment" 
+                                                class="mx-1 btn btn-sm btn-square btn-neutral cancel"
+                                                onclick="location.href=this.href+'/'+ `<%=confirmedAppointments[i]._id %>`;return false"
+                                            ><i class="bi bi-x"></i></a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade card shadow border-0 mb-7" id="rejectedApplication" role="tabpanel" aria-labelledby="rejected-tab">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Rejected Appointments</h5>
+                        <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-nowrap">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Doctor Name</th>
+                                    <th scope="col">Appointment Date/Time</th>
+                                    <th scope="col">Reason</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (rejectedAppointments.length < 1) { %>
+                                    <tr>
+                                        <td class="col mx-auto" colspan="6"><h6>No applications to review</h6></td>
+                                    </tr>
+                                <% } %>
+                                <% for( var i = 0; i < rejectedAppointments.length; i++ ) { %>
+                                    <tr>
+                                        <td><%= rejectedAppointments[i].patientName %></td>
+                                        <td><%= rejectedAppointments[i].doctorName %></td>
+                                        <td><%= rejectedAppointments[i].apptDateTime %></td>
+                                        <td><%= rejectedAppointments[i].reason %></td>
+                                        <td>
+                                            <span class="badge badge-lg badge-dot">
+                                                <i class="bg-warning"></i> <%= rejectedAppointments[i].apptStatus %>
+                                            </span> 
+                                        </td>
+                                        <td class="text-end">
+                                            <a 
+                                                href="/admin/appointment-details" 
+                                                class="mx-1 btn btn-sm btn-neutral view"
+                                                onclick="location.href=this.href+'/'+ `<%=rejectedAppointments[i]._id %>`;return false"
+                                            >View</a>
+                                            <a 
+                                                href="/admin/accept-appointment" 
+                                                class="mx-1 btn btn-sm btn-neutral confirm"
+                                                onclick="location.href=this.href+'/'+ `<%=rejectedAppointments[i]._id %>`;return false"
+                                            ><i class="bi bi-check"></i></a>
+                                            <a 
+                                                href="/admin/delete-appointment" 
+                                                class="mx-1 btn btn-sm btn-square btn-neutral cancel"
+                                                onclick="location.href=this.href+'/'+ `<%=rejectedAppointments[i]._id %>`;return false"
+                                            ><i class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade card shadow border-0 mb-7" id="cancelledApplication" role="tabpanel" aria-labelledby="cancelled-tab">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Cancelled Appointments</h5>
+                        <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-nowrap">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Patient Name</th>
+                                    <th scope="col">Doctor Name</th>
+                                    <th scope="col">Appointment Date/Time</th>
+                                    <th scope="col">Reason</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (cancelledAppointments.length < 1) { %>
+                                    <tr>
+                                        <td class="col mx-auto" colspan="6"><h6>No applications to review</h6></td>
+                                    </tr>
+                                <% } %>
+                                <% for( var i = 0; i < cancelledAppointments.length; i++ ) { %>
+                                    <tr>
+                                        <td><%= cancelledAppointments[i].patientName %></td>
+                                        <td><%= cancelledAppointments[i].doctorName %></td>
+                                        <td><%= cancelledAppointments[i].apptDateTime %></td>
+                                        <td><%= cancelledAppointments[i].reason %></td>
+                                        <td>
+                                            <span class="badge badge-lg badge-dot">
+                                                <i class="bg-primary"></i><%= cancelledAppointments[i].apptStatus %>
+                                            </span> 
+                                        </td>
+                                        <td class="text-end">
+                                            <a 
+                                                href="/admin/appointment-details" 
+                                                class="mx-1 btn btn-sm btn-neutral view"
+                                                onclick="location.href=this.href+'/'+ `<%=cancelledAppointments[i]._id %>`;return false"
+                                            >View</a>
+                                            <a 
+                                                href="/admin/accept-appointment" 
+                                                class="mx-1 btn btn-sm btn-neutral confirm"
+                                                onclick="location.href=this.href+'/'+ `<%=cancelledAppointments[i]._id %>`;return false"
+                                            ><i class="bi bi-check"></i></a>
+                                            <a 
+                                                href="/admin/delete-appointment" 
+                                                class="mx-1 btn btn-sm btn-square btn-neutral cancel"
+                                                onclick="location.href=this.href+'/'+ `<%=cancelledAppointments[i]._id %>`;return false"
+                                            ><i class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+<%- include('./footer.ejs')  %> 

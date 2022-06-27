@@ -1,0 +1,105 @@
+<%- include('header.ejs'); %>
+<section class="book-appt-page-sec mt-n12">
+  <div class="offset-sm-6 offset-md-2 col-sm-6 col-md-8 offset-md-2 container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" style="left: 100px;">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 m-auto">
+                <h2 class="">Edit Appointment</h2>
+                <small class=" text-muted">Editing Appointment will change status of Appointment to <b>Pending</b></small>
+                <div class="add-painting-form">
+                  <div class="profile-form mt-20 view-banner-page">
+                    <form action="/patient/submit-edit-appointment" method="post">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="row">
+                            <input type="hidden" name="appointmentID" value="<%= appt._id %>">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" class="form-control" name="pName" value="<%= appt.patientName %>"/>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control bg-secondary text-dark" name="pEmail" value="<%= appt.patientEmail %>" readonly/>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Doctor Name</label>
+                                <input type="text" class="form-control bg-secondary text-dark" name="dName" value="<%= appt.doctorName %>" id="docSearchText" readonly/>                            
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Specialisation</label>
+                                <input type="text" class="form-control bg-secondary text-dark" value="<%= doctor.specialisation %> " id="specialisation" disabled/>
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Doctor's Email</label>
+                                <input
+                                  type="text"
+                                  name="dEmail"
+                                  class="form-control bg-secondary text-dark"
+                                  id="doctorEmail"
+                                  value="<%= appt.doctorEmail %>"
+                                  readonly 
+                                />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Appointment Date/Time</label>
+                                <small class="text-muted" style="font-size: 12px;">(Previous Date/Time: <%= appt.apptDateTime %>)</small>
+                                <input
+                                  type="datetime-local"
+                                  name="apptDateTime"
+                                  class="form-control"
+                                />
+                              </div>
+                            </div>
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Reason</label>
+                                <input type="text" class="form-control" name="reason" value="<%= appt.reason %>"/>
+                              </div>
+                            </div>
+  
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Description</label>
+                                <textarea rows="3" cols="21" class="form-control" name="desc"/ ><%= appt.description %></textarea>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="popup-btn text-center">
+                            <button type="submit" class="common-btn mr-5">Save Changes</button>
+                            <button type="button" class="common-btn mr-5" onclick="location.href=`/patient/seeAppt`;return false">Cancel</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('footer.ejs'); %>

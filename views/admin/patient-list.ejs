@@ -1,0 +1,156 @@
+<%- include('./header.ejs')  %> 
+                <!-- Nav -->
+                <ul class="nav nav-tabs mt-4 overflow-x border-0" id="myTab" role="tablist">
+                    <li class="nav-item ">
+                        <button class="nav-link active" id="patient-tab" data-bs-toggle="tab" data-bs-target="#patientList" type="button" role="tab" aria-controls="patient" aria-selected="true">Patient</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link font-regular" id="deleted-tab" data-bs-toggle="tab" data-bs-target="#deletedPatientList" type="button" role="tab" aria-controls="deleted" aria-selected="false">Deleted</button>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <main class="py-6 bg-surface-secondary">
+            <div class="tab-content container-fluid" id="nav-tabContent">
+                <div class="tab-pane fade show active card shadow border-0 mb-7" id="patientList" role="tabpanel" aria-labelledby="patient-tab">
+                        <div class="card-header">
+                            <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Patient</h5>
+                            <% if(err_msg!=undefined){ %>
+                                <span class="error_validate flash_msg mx-7" style="color: red;" >
+                                    <%= err_msg %>
+                                </span>
+                            <% }%>
+                            <% if(success_msg!=undefined){ %>
+                                <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                                    <%= success_msg %>
+                                </span>
+                            <% }%>
+                            <!-- <button type="button" class="mt-n2 btn btn-sm btn-neutral float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end" id="addButton"><i class="bi bi-plus"></i><small class=" ms-1 addButtonHoverText">Add Patient</small></button> -->
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-nowrap">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Mobile Number</th>
+                                        <th scope="col">Email Verification</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (patientList.length < 1) { %>
+                                        <tr>
+                                            <td class="col mx-auto" colspan="6"><h6>You don't any registered patient.</h6></td>
+                                        </tr>
+                                    <% } %>
+                                    <% for( var i = 0; i < patientList.length; i++ ) { %>
+                                        <tr>
+                                            <td><%= patientList[i].name %></td>
+                                            <td><%= patientList[i].email %></td>
+                                            <td><%= patientList[i].mobile_no %></td>
+                                            <td><%= patientList[i].email_verify_status %></td>
+                                            <td>
+                                                <% if (patientList[i].status == 'active') { %>
+                                                    <span class="badge badge-lg badge-dot">
+                                                        <i class="bg-success"></i> Active
+                                                    </span> 
+                                                <% } else { %>
+                                                    <span class="badge badge-lg badge-dot">
+                                                        <i class="bg-danger"></i> Inactive
+                                                    </span>
+                                                <% } %>
+                                            </td>
+                                            <td class="text-end">
+                                                <a 
+                                                    href="/admin/patient-details" 
+                                                    class="mx-1 btn btn-sm btn-neutral view"
+                                                    onclick="location.href=this.href+'/'+ `<%=patientList[i]._id %>`;return false"
+                                                >View</a>
+                                                <a 
+                                                    href="/admin/delete-patient" 
+                                                    class="mx-1 btn btn-sm btn-square btn-neutral cancel"
+                                                    onclick="location.href=this.href+'/'+ `<%=patientList[i]._id %>`;return false"
+                                                ><i class="bi bi-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+                <div class="tab-pane fade card shadow border-0 mb-7" id="deletedPatientList" role="tabpanel" aria-labelledby="deleted-tab">
+                        <div class="card-header">
+                            <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Deleted Patient</h5>
+                            <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-nowrap">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Mobile Number</th>
+                                        <th scope="col">Email Verification</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (deletedPatientList.length < 1) { %>
+                                        <tr>
+                                            <td class="col mx-auto" colspan="6"><h6>No patient is deleted.</h6></td>
+                                        </tr>
+                                    <% } %>
+                                    <% for( var i = 0; i < deletedPatientList.length; i++ ) { %>
+                                        <tr>
+                                            <td><%= deletedPatientList[i].name %></td>
+                                            <td><%= deletedPatientList[i].email %></td>
+                                            <td><%= deletedPatientList[i].mobile_no %></td>
+                                            <td><%= deletedPatientList[i].email_verify_status %></td>
+                                            <td>
+                                                <% if (deletedPatientList[i].status == 'active') { %>
+                                                    <span class="badge badge-lg badge-dot">
+                                                        <i class="bg-success"></i> Active
+                                                    </span> 
+                                                <% } else { %>
+                                                    <span class="badge badge-lg badge-dot">
+                                                        <i class="bg-danger"></i> Inactive
+                                                    </span>
+                                                <% } %>
+                                            </td>
+                                            <td class="text-end">
+                                                <a 
+                                                    href="/admin/patient-details" 
+                                                    class="mx-1 btn btn-sm btn-neutral view"
+                                                    onclick="location.href=this.href+'/'+ `<%=deletedPatientList[i]._id %>`;return false"
+                                                >View</a>
+                                                <a 
+                                                    href="/admin/accept-patient" 
+                                                    class="mx-1 btn btn-sm btn-neutral confirm"
+                                                    onclick="location.href=this.href+'/'+ `<%=deletedPatientList[i]._id %>`;return false"
+                                                ><i class="bi bi-check"></i></a>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </main>
+        <!-- <script>
+            $(document).ready(function () {
+                $('#addButton').mouseover(function () {
+                    $('.addButtonHoverText').css('display', 'inline')
+                    $('#addButton').removeClass('rounded-circle')
+
+                })
+                $('#addButton').mouseout(function () {
+                    $('.addButtonHoverText').css('display', 'none')
+                    $('#addButton').addClass('rounded-circle')
+                })
+            })
+        </script> -->
+<%- include('./footer.ejs')  %> 

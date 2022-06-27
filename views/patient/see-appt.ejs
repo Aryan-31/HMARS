@@ -1,0 +1,191 @@
+<%- include('./header.ejs') %>
+<div class="offset-2 col-10">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Appointments</h4>
+        <% if(err_msg!=undefined){ %>
+          <span class="error_validate flash_msg mx-7" style="color: red;" >
+              <%= err_msg %>
+          </span>
+        <% }%>
+        <% if(success_msg!=undefined){ %>
+            <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                <%= success_msg %>
+            </span>
+        <% }%>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-nowrap">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Patient Name</th>
+              <th scope="col">Doctor Name</th>
+              <th scope="col">Appointment Date/Time</th>
+              <th scope="col">Reason</th>
+              <th scope="col">Description</th>
+              <th scope="col">Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (appts.length < 1) { %>
+             <td colspan="7">You have no Appointments. <a href="/patient/bookAppt">Book Now</a></td>
+            <% } else { %>
+              <% for( var i = 0; i < appts.length; i++ ) { %>
+                <tr>
+                  <td data-label="Patient Name"><%= appts[i].patientName %></td>
+                  <td data-label="Doctor Name"><%= appts[i].doctorName %></td>
+                  <td data-label="Appointment Date/Time"><%= appts[i].apptDateTime %></td>
+                  <td data-label="Reason" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= appts[i].reason %>" style="white-space: nowrap;"><%= appts[i].reason %></td>
+                  <td data-label="Description" class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="bottom" title="<%= appts[i].description %>"><%= appts[i].description %></td>
+                  <td data-label="Status">
+                    <% if (appts[i].apptStatus == 'Pending') { %>
+                      <span class="badge badge-lg badge-dot">
+                        <i class="bg-warning"></i>Pending
+                      </span>
+                    <% } else if (appts[i].apptStatus == 'Confirmed') { %>
+                      <span class="badge badge-lg badge-dot">
+                        <i class="bg-success"></i>Confirmed
+                      </span>
+                    <% } else if (appts[i].apptStatus == 'Rejected') { %>
+                      <span class="badge badge-lg badge-dot">
+                        <i class="bg-danger"></i>Rejected
+                      </span>
+                    <% } else { %>
+                      <span class="badge badge-lg badge-dot">
+                        <i class="bg-primary"></i>Cancelled
+                      </span>
+                    <% } %>
+                  </td>
+                  <td class="text-end">
+                      <a 
+                      href="/patient/edit-appointment" 
+                      class="me-10"
+                      onclick="location.href=this.href+'/' + `<%= appts[i]._id %>`;return false"
+                      >
+                        <i class="bi bi-pencil-square"></i>
+                      </a>
+                      <% if ((appts[i].apptStatus == 'Cancelled') || (appts[i].apptStatus == 'Rejected')) { %>
+                        <a 
+                        href="#"
+                        class="me-10"
+                        data-toggle="modal"
+                        data-target="#deleteConfirmModal<%= i %>"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      <% } else { %>
+                        <a 
+                        type="button" 
+                        class="me-10"
+                        data-toggle="modal"
+                        data-target="#cancelConfirmModal<%= i %>"
+                        >
+                          <i class="bi bi-x"></i>
+                        </a>
+                      <% } %> 
+                  </td>
+                  <!-- Cancel Confirmation Model -->
+                  <div
+                    class="modal fade delete"
+                    id="cancelConfirmModal<%= i %>"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="cancelConfirmModalTitle"
+                    aria-hidden="true"
+                  >
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="cancelConfirmModalLongTitle">
+                          Cancel Appointment
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to Cancel this Appointment?
+                      </div>
+                      <div class="modal-footer">
+                        <a type="button" class="btn btn-secondary" data-dismiss="modal">
+                          No
+                        </a>
+                        <a
+                          href="/patient/cancelAppointment"
+                          class="btn btn-primary"
+                          onclick="location.href=this.href+'/'+ `<%=appts[i]._id %>`;return false"
+                        >
+                          Yes
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <!-- Modal Completed  -->
+
+                  <!-- Delete Confirmation Model -->
+                  <div
+                  class="modal fade delete"
+                  id="deleteConfirmModal<%= i %>"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="deleteConfirmModalTitle"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmModalLongTitle">
+                          Delete Appointment
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete this Appointment?
+                      </div>
+                      <div class="modal-footer">
+                        <a type="button" class="btn btn-secondary" data-dismiss="modal">
+                          No
+                        </a>
+                        <a
+                          href="/patient/deleteAppt"
+                          class="btn btn-primary"
+                          onclick="location.href=this.href+'/'+ `<%=appts[i]._id %>`;return false"
+                        >
+                          Yes
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                  <!-- Modal Completed  -->
+                </tr>
+              <% } %>
+            <% } %>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  //Hide flash message after 10 seconds
+  setTimeout(function() {
+    $('.flash_msg').fadeOut('fast');
+}, 5000);
+</script>
+<%- include('./footer.ejs') %>

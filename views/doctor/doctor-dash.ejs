@@ -1,0 +1,63 @@
+<%- include('./header.ejs') %>
+
+<section class="dashboard-sec">
+  <div class="offset-sm-6 offset-md-2 col-sm-6 col-md-10 container">
+    <div class="row">
+      <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+            <div class="graadient-dash-box green-bg">
+              <h5>Total Medical Records</h5>
+              <h4><i class="fa fa-folder-open-o" style="color: #8f7b28ab;"></i> <%= countMedicalReport %></h4>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-4 pl-2 pr-2">
+            <div class="graadient-dash-box green-bg">
+              <h5>Upcoming Appointments</h5>
+              <h4><i class="fa fa-calendar" style="color: #8f7b28ab;"></i> <%= countAppointments %></h4>
+            </div>
+          </div>
+        </div>
+        <div class="recent-trans-row">
+          <h3>Upcoming Appointments</h3>
+          <a href="/doctor/seeAppt" class="view-all-link">View All</a>
+        </div>
+        <hr />
+        <div>
+          <% if (appts.length < 1) { %>
+           <h6>You have no Appointments.</h6>
+          <% } %>
+          <ul class="transaction-list">
+            <% for( var i = 0; i < appts.length; i++ ) { %> 
+              <li>
+                <div class="inner-box-trans">
+                  <div class="img-box-trc">
+                    <i class='fas fa-tasks'></i>
+                    <h2><%= appts[i].patientName %></h2>
+                  </div>
+                  <div>
+                    <h3 class="confirmed">Confirmed</h3>
+                    <p><%= appts[i].apptDateTime %></p>
+                  </div>
+                </div>
+              </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 pl-2">
+        <div class="profile-redeem-box">
+          <h1 class="display-1"><i class="row justify-content-center bi bi-person-circle"></i></h1>
+          <h3><%= session.re_usr_name %></h3>
+          <p><%= session.re_usr_email %></p>
+          <div class="d-flex justify-content-between">
+            <a href="/doctor/edit-profile" class="common-btn">Edit Profile</a>
+            <a href="/doctor/change-password" class="common-btn blue-btn">Change Password</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('./footer.ejs') %>

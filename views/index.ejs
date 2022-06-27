@@ -1,0 +1,79 @@
+<%- include('./header.ejs') %>
+
+<section class="main-banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 m-auto">
+        <div class="banner-content">
+          <h3>Hospital Management And Record Sharing</h3>
+          <p>
+            HMARS is a one stop for hospital management and record sharing.
+            With a user-friendly GUI, users can keep track of their medical 
+            records and share them with other registered users.
+          </p>
+          <a href="/login" class="common-btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-us-sec" id="aboutUs">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="heading-main d-flex justify-content-center align-items-center">About Us</h5>
+        <h6 class="d-flex justify-content-center align-items-center"><q>Its not that we use technology, we live technology.</q></h6>
+        <p class="d-flex justify-content-center align-items-center">~Godfrey Reggio</p>
+        <h3 class="sub-heading">
+          Hospital Management And Record Sharing
+        </h3>
+        <p>
+          We aim to provide user the best experience while using our software. <br>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-us-sec" id="contactUs">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h5 class="heading-main d-flex justify-content-center align-items-center mt-4">Contact Us</h5>
+        <% if(err_msg!=undefined){ %>
+          <span class="error_validate flash_msg" style="color:red" >
+            <%= err_msg %>
+          </span>
+        <% }%>
+        <% if(success_msg!=undefined){ %>
+          <span class="error_validate flash_msg" style="color:#71D840" >
+            <%= success_msg %>
+          </span>
+        <% }%>
+      </div>
+    </div>
+    <form action="/submit-contact-us" class="row g-0 d-flex justify-content-center align-items-center" method="post">
+      <div class="col-md-6 mt-2">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control border-dark border-top-0 border-right-0 border-left-0 shadow-none rounded-0" name="name" id="name" placeholder="Full name">
+      </div>
+      <div class="col-md-6 mt-2">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control border-dark border-top-0 border-right-0 border-left-0 shadow-none rounded-0" name="email" id="email" placeholder="johndoe@mail.com">
+      </div>
+      <div class="col-12 mt-2">
+        <label for="subject" class="form-label">Subject</label>
+        <input type="text" class="form-control border-dark border-top-0 border-right-0 border-left-0 shadow-none rounded-0" name="subject" id="subject" placeholder="e.g. Regarding login issue, etc.">
+      </div>
+      <div class="col-12 mt-2">
+        <label for="inputAddress2" class="form-label">Message</label>
+        <textarea name="message" class="form-control border-dark" id="message" cols="30" rows="5" placeholder="Description"></textarea>
+      </div>
+      <div class="col-12 mt-2 mb-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</section>
+<%- include('./footer.ejs') %>

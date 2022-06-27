@@ -1,0 +1,150 @@
+<%- include('./header.ejs')  %>
+            </div>
+        </header> 
+        <!-- Main -->
+        <main class="py-6 bg-surface-secondary">
+            <div class="container-fluid">
+                <!-- Card stats -->
+                <div class="row g-6 mb-6">
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card shadow border-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">Doctors</span>
+                                        <span class="h3 font-bold mb-0"><%= countDoctor %></span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card shadow border-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">Total Appointments</span>
+                                        <span class="h3 font-bold mb-0"><%= countAppointments %></span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-primary text-white text-lg rounded-circle">
+                                            <i class="bi bi-calendar-date"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card shadow border-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">Patients</span>
+                                        <span class="h3 font-bold mb-0"><%= countPatient %></span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-info text-white text-lg rounded-circle">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="card shadow border-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <span class="h6 font-semibold text-muted text-sm d-block mb-2">Pending Applications</span>
+                                        <span class="h3 font-bold mb-0"><%= countPendingApplications %> </span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-warning text-white text-lg rounded-circle">
+                                            <i class="bi bi-file-earmark-person"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="mt-2 mb-0 text-sm">
+                                    <span class="badge badge-pill bg-soft-success text-success me-2">
+                                        <i class="bi bi-arrow-up me-1"></i>10%
+                                    </span>
+                                    <span class="text-nowrap text-xs text-muted">Since last month</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow border-0 mb-7">
+                    <div class="card-header">
+                        <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Recent Applications</h5>
+                        <a href="/admin/doctor-verification-applications" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a>
+                    </div>
+                    <% if(err_msg!=undefined){ %>
+                        <span class="error_validate flash_msg mx-7" style="color: red;" >
+                            <%= err_msg %>
+                        </span>
+                    <% }%>
+                    <% if(success_msg!=undefined){ %>
+                            <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                              <%= success_msg %>
+                            </span>
+                    <% }%>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-nowrap">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">License Number</th>
+                                    <th scope="col">Specialisation</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (pendingApplications.length < 1) { %>
+                                    <tr>
+                                        <td class="col mx-auto" colspan="5"><h6>No applications to review</h6></td>
+                                    </tr>
+                                <% } %>
+                                <% for( var i = 0; i < pendingApplications.length; i++ ) { %>
+                                    <tr>
+                                        <td><%= pendingApplications[i].name %> </td>
+                                        <td><%= pendingApplications[i].email %> </td>
+                                        <td><%= pendingApplications[i].licenseNumber %> </td>
+                                        <td><%= pendingApplications[i].specialisation %> </td>
+                                        <td class="text-end">
+                                            <a 
+                                                href="#" 
+                                                class="mx-1 btn btn-sm btn-neutral view"
+                                                onclick="location.href=this.href+'/'+ `<%=pendingApplications[i]._id %>`;return false"
+                                            >View</a>
+                                            <a 
+                                                href="/admin/accept-application" 
+                                                class="mx-1 btn btn-sm btn-neutral confirm"
+                                                onclick="location.href=this.href+'/'+ `<%=pendingApplications[i]._id %>`;return false"
+                                            ><i class="bi bi-check"></i></a>
+                                            <a 
+                                                href="/admin/reject-application" 
+                                                class="mx-1 btn btn-sm btn-square btn-neutral cancel"
+                                                onclick="location.href=this.href+'/'+ `<%=pendingApplications[i]._id %>`;return false"
+                                            ><i class="bi bi-x"></i></a>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="card-footer border-0 py-5">
+                        <span class="text-muted text-sm">Showing 10 items out of 250 results found</span>
+                    </div> -->
+                </div>
+            </div>
+        </main>
+<%- include('./footer.ejs')  %> 

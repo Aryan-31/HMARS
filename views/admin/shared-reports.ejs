@@ -1,0 +1,247 @@
+<%- include('./header.ejs')  %> 
+            <!-- Nav -->
+        <ul class="nav nav-tabs mt-4 overflow-x border-0" id="myTab" role="tablist">
+          <li class="nav-item ">
+            <button class="nav-link active" id="sent-tab" data-bs-toggle="tab" data-bs-target="#sentList" type="button" role="tab" aria-controls="sent" aria-selected="true">Sent</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link font-regular" id="received-tab" data-bs-toggle="tab" data-bs-target="#receivedList" type="button" role="tab" aria-controls="received" aria-selected="false">Received</button>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main class="py-6 bg-surface-secondary">
+      <div class="tab-content container-fluid" id="nav-tabContent">
+        <div class="tab-pane fade show active card shadow border-0 mb-7" id="sentList" role="tabpanel" aria-labelledby="sent-tab">
+          <div class="card-header">
+            <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Sent Medical Records</h5>
+            <% if(err_msg!=undefined){ %>
+                <span class="error_validate flash_msg mx-7" style="color: red;" >
+                    <%= err_msg %>
+                </span>
+            <% }%>
+            <% if(success_msg!=undefined){ %>
+                <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                    <%= success_msg %>
+                </span>
+            <% }%>
+            <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-nowrap">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">To</th>
+                  <th scope="col">Patient Name</th>
+                  <th scope="col">Doctor Name</th>
+                  <th scope="col">Diagnosis</th>
+                  <th scope="col">Type</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (sharedReportsList.length < 1) { %>
+                  <tr>
+                    <td colspan="6">You have not shared any reports with anyone.</td>
+                  </tr>
+                <% } else { %>
+                  <% for( let i = 0; i < sharedReportsList.length; i++ ) { %>
+                    <% for( let j = 0; j < sharedReportsList[i].accessTo.length; j++ ) { %>
+                      <tr>
+                        <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= sharedReportsList[i].accessTo[j].email %>"><%= sharedReportsList[i].accessTo[j].email %></td>
+                        <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= sharedReportsList[i].patientName %>"d><%= sharedReportsList[i].patientName %></td>
+                        <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= sharedReportsList[i].doctorName %>"><%= sharedReportsList[i].doctorName %></td>
+                        <td
+                        data-label="Diagnosis"
+                        class="text-truncate"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="<%= sharedReportsList[i].diagnosis %>"
+                        ><%= sharedReportsList[i].diagnosis %></td>
+                        <td
+                        data-label="Type"
+                        class="text-truncate"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="<%= sharedReportsList[i].recordType %>"
+                        ><%= sharedReportsList[i].recordType %></td>
+                        <td class="text-end">
+                          <a href="/admin/view-prescription" class="me-10" onclick="location.href=this.href+'/'+`<%= sharedReportsList[i]._id %>`;return false">
+                            <i class="bi bi-folder2-open"></i>
+                          </a>
+                          <!-- <a
+                            type="button"
+                            class="me-10"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteConfirmModal"
+                          >
+                            <i class="bi bi-x"></i>
+                          </a> -->
+                        </td>
+                        <!-- Delete Confirmation Model -->
+                        <!-- <div
+                        class="modal fade delete"
+                        id="deleteConfirmModal"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="deleteConfirmModalTitle"
+                        aria-hidden="true"
+                        >
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="deleteConfirmModalLongTitle">
+                                  Remove Access
+                                  </h5>
+                                  <button
+                                  type="button"
+                                  class="close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                  >
+                                  <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                  Are you sure you want to remove access to this record? 
+                              </div>
+                              <div class="modal-footer">
+                                  <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                  No
+                                  </a>
+                                  <a
+                                  href="#"
+                                  class="btn btn-primary"
+                                  >
+                                  Yes
+                                  </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                        <!-- Modal Completed  -->
+                      </tr>
+                    <% } %>
+                  <% } %>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane fade card shadow border-0 mb-7" id="receivedList" role="tabpanel" aria-labelledby="received-tab">
+          <div class="card-header">
+            <h5 class="mb-0 d-block d-sm-inline d-md-inline d-lg-inline d-xl-inline d-xxl-inline">Received Medical Records</h5>
+            <% if(err_msg!=undefined){ %>
+                <span class="error_validate flash_msg mx-7" style="color: red;" >
+                    <%= err_msg %>
+                </span>
+            <% }%>
+            <% if(success_msg!=undefined){ %>
+                <span class="error_validate flash_msg mx-7" style="color:#71D840" >
+                    <%= success_msg %>
+                </span>
+            <% }%>
+            <!-- <a href="" class="btn btn-sm btn-neutral mt-1 float-start float-sm-end float-md-end float-lg-end float-xl-end float-xxl-end">View All</a> -->
+          </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-nowrap">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">From</th>
+                  <th scope="col">Patient Name</th>
+                  <th scope="col">Doctor Name</th>
+                  <th scope="col">Diagnosis</th>
+                  <th scope="col">Type</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (receivedReportsList.length < 1) { %>
+                  <tr>
+                    <td colspan="6">You have not received any reports</td>
+                  </tr>
+                <% } else { %>
+                  <% for( let i = 0; i < receivedReportsList.length; i++ ) { %>
+                    <tr>
+                      <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= receivedReportsList[i].email %>"><%= receivedReportsList[i].email %></td>
+                      <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= receivedReportsList[i].patientName %>"d><%= receivedReportsList[i].patientName %></td>
+                      <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= receivedReportsList[i].doctorName %>"><%= receivedReportsList[i].doctorName %></td>
+                      <td
+                      data-label="Diagnosis"
+                      class="text-truncate"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="<%= receivedReportsList[i].diagnosis %>"
+                      ><%= receivedReportsList[i].diagnosis %></td>
+                      <td
+                      data-label="Type"
+                      class="text-truncate"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      title="<%= receivedReportsList[i].recordType %>"
+                      ><%= receivedReportsList[i].recordType %></td>
+                      <td class="text-end">
+                        <a href="/admin/view-prescription" class="me-10" onclick="location.href=this.href+'/'+`<%= receivedReportsList[i]._id %>`;return false">
+                          <i class="bi bi-folder2-open"></i>
+                        </a>
+                        <!-- <a
+                          type="button"
+                          class="me-10"
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteConfirmModal"
+                        >
+                          <i class="bi bi-x"></i>
+                        </a> -->
+                      </td>
+                      <!-- Delete Confirmation Model -->
+                      <!-- <div
+                      class="modal fade delete"
+                      id="deleteConfirmModal"
+                      tabindex="-1"
+                      role="dialog"
+                      aria-labelledby="deleteConfirmModalTitle"
+                      aria-hidden="true"
+                      >
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteConfirmModalLongTitle">
+                                Remove Access
+                                </h5>
+                                <button
+                                type="button"
+                                class="close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                >
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to remove access to this record? After removing access, you have to ask the owner to share the report again with you.
+                            </div>
+                            <div class="modal-footer">
+                                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                No
+                                </a>
+                                <a
+                                href="#"
+                                class="btn btn-primary"
+                                >
+                                Yes
+                                </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      <!-- Modal Completed  -->
+                    </tr>
+                  <% } %>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+<%- include('./footer.ejs')  %> 

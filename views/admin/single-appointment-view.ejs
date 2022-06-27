@@ -1,0 +1,201 @@
+<%- include('./header.ejs')  %> 
+            </div>
+        </header>
+        <main class="py-6 bg-surface-secondary">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header bg-secondary">
+                        <h3>Appointment Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-0">
+                            <div class="card-header">
+                                <h5>Patient Details</h5>
+                            </div>
+                            <div class="col-md-3 mt-n6">
+                                <i class="ps-12 pe-12 mt-n6 bi bi-person-square" style="font-size: calc(6vw + 4vh + 4vmin);"></i>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="name" class="form-label text-muted">Name</label>
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white text-truncate"
+                                            id="name"
+                                            value="<%= apptDetails.patientName %>"
+                                            title="<%= apptDetails.patientName %> "
+                                            disabled
+                                            />
+                                        </div>
+                                        <div class="offset-md-2 col-md-4">
+                                            <label for="email" class="form-label text-muted">Email</label>
+                                            <input
+                                            type="email"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white text-truncate"
+                                            id="email"
+                                            value="<%= apptDetails.patientEmail %>"
+                                            title="<%= apptDetails.patientEmail %>"
+                                            disabled
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-4">
+                                            <label for="mobNo" class="form-label text-muted"
+                                            >Mobile Number</label
+                                            >
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                            id="mobNo"
+                                            value="<%= patientDetails.mobile_no %>"
+                                            disabled
+                                            />
+                                        </div>
+                                        <div class="offset-md-2 col-md-4">
+                                            <label for="age" class="form-label text-muted">Age</label>
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                            id="age"
+                                            value="<%= patientAge %>"
+                                            disabled
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0">
+                            <div class="card-header ">
+                                <h5>Doctor Details</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <i class="ps-12 pe-12 mt-n12 bi bi-person-fill" style="font-size: calc(7vw + 5vh + 4vmin);"></i>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="docName" class="form-label text-muted"
+                                            >Doctor Name</label
+                                            >
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white text-truncate"
+                                            id="docName"
+                                            value="<%= doctorDetails.name %>"
+                                            title="<%= doctorDetails.name %>"
+                                            disabled
+                                            />
+                                        </div>
+                                        <div class="offset-md-2 col-md-4">
+                                            <label for="docEmail" class="form-label text-muted">Doctor Email</label>
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white text-truncate"
+                                            id="docEmail"
+                                            value="<%= doctorDetails.email %>"
+                                            value="<%= doctorDetails.email %>"
+                                            disabled
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-4">
+                                            <label for="docMobNo" class="form-label text-muted"
+                                            >Mobile Number</label
+                                            >
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                            id="docMobNo"
+                                            value="<%= doctorDetails.mobile_no %>"
+                                            disabled
+                                            />
+                                        </div>
+                                        <div class="offset-md-2 col-md-4">
+                                            <label for="docSpec" class="form-label text-muted">Specialisation</label>
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                            id="docSpec"
+                                            value="<%= doctorDetails.specialisation %>"
+                                            value="<%= doctorDetails.specialisation %>"
+                                            disabled
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-0">
+                            <div class="card-header">
+                                <h5>Appointment Details</h5>
+                            </div>
+                            <div class="col-md-3 mt-n6">
+                                <i class="ps-12 pe-12 mt-n6 bi bi-calendar-date" style="font-size: calc(6vw + 4vh + 4vmin);"></i>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="apptDateTime" class="form-label text-muted"
+                                            >Appointment Date/Time</label
+                                            >
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white text-truncate"
+                                            id="apptDateTime"
+                                            value="<%= apptDetails.apptDateTime %>"
+                                            title="<%= apptDetails.apptDateTime %>"
+                                            disabled
+                                            />
+                                        </div>
+                                        <div class="offset-md-2 col-md-4">
+                                            <label for="apptStatus" class="form-label text-muted">Status</label>
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white"
+                                            id="apptStatus"
+                                            value="<%= apptDetails.apptStatus %>"
+                                            disabled
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="row mt-4">
+                                        <div class="col-md-4">
+                                            <label for="apptReason" class="form-label text-muted"
+                                            >Reason</label
+                                            >
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white text-truncate"
+                                            id="apptReason"
+                                            value="<%= apptDetails.reason %>"
+                                            title="<%= apptDetails.reason %>"
+                                            disabled
+                                            />
+                                        </div>
+                                        <div class="offset-md-2 col-md-4">
+                                            <label for="apptDesc" class="form-label text-muted">Description</label>
+                                            <input
+                                            type="text"
+                                            class="form-control border-top-0 border-end-0 border-start-0 rounded-0 bg-white text-truncate"
+                                            id="apptDesc"
+                                            value="<%= apptDetails.description %>"
+                                            title="<%= apptDetails.description %>"
+                                            disabled
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </main>
+<%- include('./footer.ejs')  %> 

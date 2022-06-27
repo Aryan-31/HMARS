@@ -1,0 +1,98 @@
+<%- include('./header.ejs') %>
+</div>
+</div>
+</header>
+</div>
+<div class="offset-2 col-10">
+    <div class="container d-flex align-items-center justify-content-center">
+        <div class="card rounded-0 shadow-4 mb-4 border-3" style="width: 793px; height:1122px">
+            <div class="card-header">
+                <div class="row g-0">
+                    <div class="col-4 flex-start">
+                        <div class="row g-0">
+                            <img src="/assets/images/HMARS-logo-prescription.jpg" alt="" style="height: 60%; width:100%;">
+                        </div>
+                        <div class="row g-0">
+                            <small class="text-muted text-wrap"><b>Support:</b> infohmars@gmail.com</small>
+                        </div>
+                    </div>
+                    <div class="offset-4 col-4">
+                        <div class="row g-1">
+                            <h4 class="h3 docName">Dr. <%= doctorInfo.name %></h4>
+                        </div>
+                        <div class="row g-1">
+                            <small class="text-muted text-wrap"><b>Email:</b> <%= doctorInfo.email %></small>
+                        </div>
+                        <div class="row g-1">
+                            <small class="text-muted text-wrap"><b>Reg No:</b> <%= doctorInfo.licenseNumber %></small>
+                        </div>
+                        <div class="row g-1">
+                            <small class="text-muted text-wrap"><b><%= doctorInfo.specialisation %></b></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3 mt-12">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <small for="name"><b>Name:</b> <%= recordInformation.patientName %></small>
+                        </div>
+                        <div class="col-3">
+                            <small for="age"><b>Age:</b> <%= patientAge %> years</small>
+                        </div>
+                        <div class="col-3">
+                            <small for="gender"><b>Sex:</b> <%= patientInfo.gender %></small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3 ">
+                    <div class="row g-3">
+                        <div class="col-4">
+                            <small for="dateTime"><b>Date/Time:</b> <%= recordInformation.visitedOn %></small>
+                        </div>
+                        <div class="col-8">
+                           <small for="diagnosis"><b>Diagnosis:</b> <%= recordInformation.diagnosis %></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="col-12 h2">
+                    R<sub>x</sub>
+                </div>
+                <div class="table-responsive mt-2">
+                    <table class="table table-layout-auto w-100">
+                        <thead class="border-top-0">
+                            <th scope="col">Medicine</th>
+                            <th scope="col">Dosage</th>
+                            <th scope="col">Timing</th>
+                            <th scope="col">Frequency</th>
+                            <th scope="col">Duration</th>
+                        </thead>
+                        <tbody>
+                            <% for( let i = 0; i < recordInformation.medicines.length; i++ ) { %>
+                                <tr>
+                                    <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= recordInformation.medicines[i].medicineName %>"><%= recordInformation.medicines[i].medicineName %></td>
+                                    <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= recordInformation.medicines[i].dosage %>"><%= recordInformation.medicines[i].dosage %></td>
+                                    <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= recordInformation.medicines[i].timing %>"><%= recordInformation.medicines[i].timing %></td>
+                                    <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= recordInformation.medicines[i].frequency %>"><%= recordInformation.medicines[i].frequency %></td>
+                                    <td class="text-truncate" data-bs-toggle="tooltip" data-bs-placement="center-bottom" title="<%= recordInformation.medicines[i].duration %>"><%= recordInformation.medicines[i].duration %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="col-12">
+                    <small class="text-muted text-wrap" style="font-size: 10px;">
+                        To share this prescription with other users on the platform: <br>
+                            1. Go to Medical Records and find the record you want to share. <br>
+                            2. Click on share button. A Share window will appear. <br>
+                            3. Enter Recipent Email address and click share button. The record will show in recipent shared report tab. 
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<%- include('./footer.ejs') %> 

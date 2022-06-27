@@ -1,0 +1,38 @@
+.navbar-collapse .navbar-nav .nav-item:active{
+    background-color: #6c757d;
+}
+
+#navbarVertical .container-fluid .navbar-brand img{
+    height: 60px;
+}
+
+.btn.btn-sm.btn-neutral.confirm:hover{
+    background-color: #71d840;
+    color: white;
+}
+
+.btn.btn-sm.btn-neutral.cancel:hover{
+    background-color: #bd0a0a;
+    color: white;
+}
+
+.dropdown-menu.dropdown-menu-end {
+    right: -22px;
+}
+
+/* Delete confirmation Modal styling */
+#rejectConfirmModal .modal-footer .btn.btn-primary, .modal.fade.delete .modal-footer .btn.btn-primary{
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+  }
+#rejectConfirmModal .modal-footer .btn.btn-primary:hover, .modal.fade.delete .modal-footer .btn.btn-primary:hover{
+    color: #fff;
+    background-color: #bd0a0a;
+    border-color: #bd0a0a;
+}
+#rejectConfirmModal .modal-footer .btn.btn-secondary:hover, .modal.fade.delete .modal-footer .btn.btn-secondary:hover:hover{
+    color: #fff;
+    background-color: #71d840;
+    border-color: #71d840;
+}

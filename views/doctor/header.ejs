@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <title>HMARS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=1.0, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes=""
+      href="/assets/images/favicon.png"
+    />
+
+    <script
+      src="https://kit.fontawesome.com/0038dd4693.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
+    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@webpixels/css@1.1.5/dist/index.css">
+    <link rel="stylesheet" href="/assets/css/nice-select.css" />
+    <link rel="stylesheet" href="/assets/css/custom-dash.css" />
+  </head>
+
+  <body>
+    <div class="dash-new-wrapper">
+      <header class="header-dash fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand brand-logo" href="/doctor/dashboard" >
+            <img src="/assets/images/HMARS-logo-dashboard.jpg" alt="" id='dashboardLogoImage'>
+          </a>
+        </div>
+      </header>
+      <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar siderbar-new-add sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/doctor/dashboard">
+                <span class="menu-title">Dashboard</span>
+                <i class="fa fa-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/doctor/seeAppt">
+                <span class="menu-title">Appointments</span>
+                <i class="fa fa-calendar menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/doctor/patientList">
+                <span class="menu-title">Patient List</span>
+                <i class="fa fa-user menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/doctor/medReports">
+                <span class="menu-title"> Your Medical Reports</span>
+                <i class="fa fa-file menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/doctor/sharedRep">
+                <span class="menu-title">Shared Reports</span>
+                <i class="fas fa-user-friends menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-bottom">
+            <hr class="navbar-divider opacity-20">
+              <li class="nav-item mb-n4">
+                  <a class="nav-link" href="/doctor/edit-profile">
+                    <span class="menu-title">Account</span>
+                    <i class="bi bi-person-square menu-icon"></i> 
+                  </a>
+              </li>
+              <li class="nav-item mb-n4">
+                  <a class="nav-link" href="/doctor/change-password">
+                    <span class="menu-title">Change Password</span>
+                    <i class="bi bi-pencil-square menu-icon"></i> 
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/doctor/logout">
+                    <span class="menu-title">Logout</span>
+                      <i class="bi bi-box-arrow-right menu-icon"></i> 
+                  </a>
+              </li>
+          </ul>
+        </nav>
+        <div class="main-panel">
+          <div class="content-wrapper"></div>
+        </div>
+      </div>
+    </div>
