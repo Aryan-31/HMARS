@@ -116,20 +116,18 @@ const userLogin = async (req, res) => {
     let userRole = await user.role
     let password = req.body.password;
     let mystr = await userServices.createCipher(password);
-    console.log(userRole)
     if (user) {
         let userLogin = await userServices.checkUserPass(req.body.email, mystr);
         if (userLogin) {
             let status = userLogin.status;
             let email_status = userLogin.email_verify_status;
-
+            
             req.session.success = true;
             req.session.re_us_id = userLogin._id;
             req.session.re_usr_name = userLogin.name;
             req.session.re_usr_email = userLogin.email;
             req.session.re_usr_role = userRole;
             req.session.is_user_logged_in = true;
-
             if (status == 'active' && email_status == 'Verified') {
                 switch (userRole) {
                     case 'patient':
@@ -137,24 +135,24 @@ const userLogin = async (req, res) => {
                             req.flash('err_msg', 'User is deleted by ' + userLogin.deleted_by + ' at ' + userLogin.deleted_at + '. Please contact hospital for further assisstance.')
                             return res.redirect('/login')
                         }
-                        res.redirect("patient/dashboard");
+                        res.redirect("/patient/dashboard");
                         break;
                     case 'doctor':
                         if (userLogin.deleted == '1') {
                             req.flash('err_msg', 'User is deleted by ' + userLogin.deleted_by + ' at ' + userLogin.deleted_at + '. Please contact hospital for further assisstance.')
                             res.redirect('/login')
                         }else if (userLogin.adminVerification == 'verified') {
-                            res.redirect("doctor/dashboard");
+                            res.redirect("/doctor/dashboard");
                         } else {
                             req.flash('err_msg','Hospital Admin has not verified your details. Please wait for them to verify or contact the hospital.')
                             res.redirect('/login')
                         }
                         break;
                     case 'admin':
-                        res.redirect("admin/dashboard")
+                        res.redirect("/admin/dashboard")
                         break;
                     default:
-                        req.flash('err_msg', 'Your role is not defined. Please write to us at support@hmars.com to update your role.')
+                        req.flash('err_msg', 'Your role is not defined. Please write to us at infohmars@gmail.com to update your role.')
                         res.redirect('/login')
                         break;
                 }
@@ -169,7 +167,7 @@ const userLogin = async (req, res) => {
         }
     }
     else {
-        req.flash('err_msg', 'Please enter valid Email address.');
+        req.flash('err_msg', 'The username or password is incorrect.');
         res.redirect('/login');
     }
 }

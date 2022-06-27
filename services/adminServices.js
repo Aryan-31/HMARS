@@ -5,7 +5,7 @@ const { userInfo } = require("../models/User");
 const { medicalRecords } = require("../models/medicalRecord");
 
 const getPendingApplications = async () => {
-    var pendingApplications = await userInfo.find({ role: 'doctor', adminVerification: 'pending' }).sort([['created_at', -1]])
+    var pendingApplications = await userInfo.find({ role: 'doctor', adminVerification: 'pending' }).sort(['created_at', -1])
     return pendingApplications
 }
 // Dashboard Services
