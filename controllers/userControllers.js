@@ -113,10 +113,10 @@ const submitAuthPage = async (req, res) => {
 
 const userLogin = async (req, res) => {
     let user = await userServices.checkUser(req.body.email);
-    let userRole = await user.role
-    let password = req.body.password;
-    let mystr = await userServices.createCipher(password);
     if (user) {
+        let password = req.body.password;
+        let mystr = await userServices.createCipher(password);
+        let userRole = await user.role
         let userLogin = await userServices.checkUserPass(req.body.email, mystr);
         if (userLogin) {
             let status = userLogin.status;
@@ -167,7 +167,7 @@ const userLogin = async (req, res) => {
         }
     }
     else {
-        req.flash('err_msg', 'The username or password is incorrect.');
+        req.flash('err_msg', 'User does not exist.');
         res.redirect('/login');
     }
 }
