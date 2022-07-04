@@ -117,7 +117,10 @@ const singleApplicationPage = async (req, res) => {
     let success_msg = req.flash('success_msg');
     try {
         let doctorDetails = await userServices.checkUserId(req.params.id)
-        res.render('/admin/single-application-view', { err_msg, success_msg, doctorDetails })
+        if (doctorDetails.dob == null || doctorDetails.dob == '') {
+            doctorDetails.dob = 'Not Provided'
+        }
+        res.render('admin/single-application-view', { title: 'Applications', session: req.session, err_msg, success_msg, doctorDetails })
     } catch (error) {
         req.flash('err_msg', 'Error loading application information. Please try again later')
         res.redirect('/admin/doctor-verification-applications')
