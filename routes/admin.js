@@ -28,6 +28,8 @@ router.post('/submit-change-password', adminControllers.passwordChange);
 // Routes for Application Page
 router.get('/doctor-verification-applications', adminControllers.applicationPage)
 
+router.get('/application-details/:id', adminControllers.singleApplicationPage)
+
 router.get('/accept-application/:id', adminControllers.acceptApplication)
 
 router.get('/reject-application/:id', adminControllers.rejectApplication)

@@ -1,6 +1,7 @@
 const session = require('express-session');
 const res = require('express/lib/response');
-const request = require('request')
+const request = require('request');
+const { userInfo } = require('../models/User');
 const adminServices = require('../services/adminServices')
 const userServices = require('../services/userServices')
 
@@ -105,6 +106,22 @@ const applicationPage = async (req, res) => {
     var pendingApplications = await adminServices.getPendingApplications()
     var rejectedApplications = await adminServices.getRejectedApplications()
     res.render('admin/doctor-application', { title: 'Applications', session: req.session, pendingApplications, rejectedApplications, err_msg, success_msg})
+}
+
+const singleApplicationPage = async (req, res) => {
+    let test = req.session.is_user_logged_in;
+    if (!test) {
+        return res.redirect('/login')
+    }
+    let err_msg = req.flash('err_msg');
+    let success_msg = req.flash('success_msg');
+    try {
+        let doctorDetails = await userServices.checkUserId(req.params.id)
+        res.render('/admin/single-application-view', { err_msg, success_msg, doctorDetails })
+    } catch (error) {
+        req.flash('err_msg', 'Error loading application information. Please try again later')
+        res.redirect('/admin/doctor-verification-applications')
+    }
 }
 
 const acceptApplication = async (req, res) => {
@@ -426,6 +443,7 @@ module.exports = {
     dashboard,
     applicationPage,
     appointmentsPage,
+    singleApplicationPage,
     acceptApplication,
     rejectApplication,
     acceptAppointment,
