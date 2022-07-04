@@ -26,7 +26,11 @@
                     name="name"
                     class="form-control"
                     placeholder="Full Name"
+                    onkeypress="return alphabetsOnly()"
+                    onblur="validateName(this.value)"
+                    required
                   />
+                  <p id="error-name" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
                 </div>
               </div>
               <div class="col-md-6">
@@ -37,7 +41,10 @@
                     name="email"
                     class="form-control"
                     placeholder="johndoe@mail.com"
+                    onblur="validateEmail(this.value)"
+                    required
                   />
+                  <p id="error-email" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
                 </div>
               </div>
             </div>
@@ -52,11 +59,14 @@
                     placeholder="*********"
                     autocomplete="off"
                     id="password-field"
+                    onblur="validatePassword(this.value)"
+                    required
                   />
                   <span
                     toggle="#password-field"
                     class="fa fa-fw fa-eye field-icon toggle-password"
                   ></span>
+                  <p id="error-password" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
                 </div>
               </div>
               <div class="col-md-6">
@@ -69,11 +79,14 @@
                     placeholder="*********"
                     autocomplete="off"
                     id="cnf-password-field"
+                    onblur="validateCnfPassword(this.value)"
+                    required
                   />
                   <span
                     toggle="#cnf-password-field"
                     class="fa fa-fw fa-eye field-icon toggle-password"
                   ></span>
+                  <p id="error-cnf-password" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
                 </div>
               </div>
             </div>
@@ -94,7 +107,11 @@
                       name="mobNo"
                       class="form-control"
                       placeholder="Mobile number"
+                      onkeypress="return numOnly(this.value)" 
+                      onblur="validateMobile(this.value)"
+                      required
                     />
+                    <p id="error-mobile" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
                   </div>
                 </div>
               </div>
@@ -106,6 +123,8 @@
                     id="userRole"
                     class="form-control role-select"
                     onchange="doctorExtraInfo(this)"
+                    onsubmit="validateRole(this.value)"
+                    required
                   >
                     <div id="userrole-content">
                       <option value="#" selected="selected" hidden>Role</option>
@@ -113,6 +132,7 @@
                       <option value="patient">Patient</option>
                     </div>
                   </select>
+                  <p id="error-role" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
                 </div>
               </div>
             </div>
@@ -125,7 +145,8 @@
                     type="text"
                     name="lN"
                     class="form-control"
-                    placeholder="Full Name"
+                    placeholder="License number"
+                    required
                   />
                 </div>
               </div>
@@ -137,16 +158,13 @@
                     name="specialisation"
                     class="form-control"
                     placeholder="e.g. ENT, Orthopaedic..."
+                    required
                   />
                 </div>
               </div>
             </div>
             <div class="mb-3">
               <input class="common-btn" type="submit" value="SignUp" />
-              <!-- <a class="common-btn border-btn" href=""
-                ><img src="assets/images/Google-Logo.png" /> SignUp with
-                Google</a
-              > -->
             </div>
             <div>
               <p>Already have an account? <a href="/login">Login</a></p>
@@ -172,7 +190,14 @@
   //Hide flash message after 10 seconds
   setTimeout(function() {
     $('.flash_msg').fadeOut('fast');
-}, 10000);
+  }, 5000);
+  $(document).ready(function () {
+    $("input").blur(function(){
+      setTimeout(function() {
+        $('.client-side-err-msg').fadeOut('fast');
+      }, 4000);
+    });
+  })
 </script>
 
 <%- include('./footer.ejs') %>

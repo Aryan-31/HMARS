@@ -18,13 +18,15 @@
           <% }%>
           <form action="/submit-forgot-password" method="post">
             <div class="form-group">
-              <label>Email Address or phone Number</label>
+              <label>Email Address</label>
               <input
                 type="email"
                 class="form-control"
                 name="email"
-                placeholder="Email Or Phone Number"
+                placeholder="Your registered email address"
+                required
               />
+              <p id="error-email" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
             </div>
             <div class="mb-3">
               <button type="submit" class="common-btn" href="#" style="padding: 8px 8px;">Submit</button>
@@ -38,5 +40,14 @@
     </div>
   </div>
 </section>
-
+<script src="/assets/js/forgotPassword"></script>
+<script>
+  $(document).ready(function () {
+    $("input").blur(function(){
+      setTimeout(function() {
+        $('.client-side-err-msg').fadeOut('fast');
+      }, 5000);
+    });
+  })
+</script>
 <%- include('./footer.ejs') %>

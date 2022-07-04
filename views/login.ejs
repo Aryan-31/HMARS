@@ -17,13 +17,16 @@
               </span>
             <% }%>
             <div class="form-group">
-              <label>Email Address or phone Number</label>
+              <label>Email Address</label>
               <input
                 type="email",
                 name="email"
                 class="form-control"
                 placeholder="Email Address"
+                onblur="validateEmail(this.value)"
+                required
               />
+              <p id="error-email" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
             </div>
             <div class="form-group mb-0">
               <label>Password</label>
@@ -34,8 +37,11 @@
                 placeholder="*********"
                 id="password-field"
                 autocomplete="off"
+                required
+                onblur="validatePassword(this.value)"
               />
               <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+              <p id="error-password" class="client-side-err-msg" style="display: none;font-size: smaller;color: rgb(187, 18, 18);"></p>
             </div>
             <p class="text-right forgot-link">
               <a href="/forgot-pass">Forgot you Password?</a>
@@ -56,7 +62,7 @@
     </div>
   </section>
 </form>
-
+<script src="/assets/js/login.js"></script>
 <script>
   $(".toggle-password").click(function() {
     $(this).toggleClass("fa-eye fa-eye-slash");
@@ -71,7 +77,15 @@
   //Hide flash message after 5 seconds
   setTimeout(function() {
     $('.flash_msg').fadeOut('fast');
-}, 5000);
+  }, 5000);
+
+  $(document).ready(function () {
+    $("input").blur(function(){
+      setTimeout(function() {
+        $('.client-side-err-msg').fadeOut('fast');
+      }, 5000);
+    });
+  })
 </script>
 
 <%- include('./footer.ejs') %>
